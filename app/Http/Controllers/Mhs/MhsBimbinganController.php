@@ -67,9 +67,11 @@ class MhsBimbinganController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        $mahasiswa = $user->mahasiswa->load('dosenPembimbing');
         $dosen = Dosen::orderBy('nama', 'asc')->get();
+        $pembimbing = $mahasiswa->dosenPembimbing;
 
-        return view('mhs.bimbingan.create', compact('dosen'));
+        return view('mhs.bimbingan.create', compact('dosen', 'pembimbing', 'mahasiswa'));
     }
 
     public function store(Request $request)
@@ -232,5 +234,30 @@ class MhsBimbinganController extends Controller
 
         return redirect()->route('mhs.bimbingan.index')
             ->with('success', 'Bimbingan berhasil dihapus.');
+    }
+
+    /**
+     * Cetak Lembar / Kartu Kendali Bimbingan
+     */
+    public function kartuKendali()
+    {
+        $user = Auth::user();
+
+        if (!$user->mahasiswa) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $mahasiswa = $user->mahasiswa->load(['dosenPembimbing', 'user']);
+        $bimbinganList = Bimbingan::with(['dokumen', 'komentar'])
+            ->where('nim', $mahasiswa->id_nim)
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        return view('bimbingan.kartu_kendali', [
+            'mahasiswa' => $mahasiswa,
+            'dosen' => $mahasiswa->dosenPembimbing,
+            'bimbinganList' => $bimbinganList,
+            'tanggalCetak' => now()->isoFormat('D MMMM Y'),
+        ]);
     }
 }

@@ -116,4 +116,26 @@ class BimbinganTest extends TestCase
         $this->assertStringContainsString('doc/12345_draft.pdf', $doc1->public_url);
         $this->assertStringContainsString('storage/dokumen_bimbingan/abc123_revisi.pdf', $doc2->public_url);
     }
+
+    public function test_mahasiswa_can_view_kartu_kendali(): void
+    {
+        $response = $this->actingAs($this->mhsUser)->get('/mhs/bimbingan/kartu-kendali');
+        $response->assertStatus(200);
+        $response->assertSee('KARTU KENDALI BIMBINGAN TUGAS AKHIR');
+        $response->assertSee($this->mhs->nama);
+    }
+
+    public function test_dosen_can_acc_sidang_for_mahasiswa(): void
+    {
+        $this->mhs->update(['nidn_pembimbing' => $this->dosen->id_nidn]);
+
+        $response = $this->actingAs($this->dosenUser)->post("/dosen/mahasiswa/{$this->mhs->id_nim}/acc-sidang", [
+            'catatan' => 'Naskah skripsi lengkap dan siap diuji pada sidang.',
+        ]);
+
+        $response->assertSessionHas('success');
+        $this->mhs->refresh();
+        $this->assertEquals('acc_sidang', $this->mhs->status_sidang);
+        $this->assertNotNull($this->mhs->tanggal_acc_sidang);
+    }
 }

@@ -139,4 +139,64 @@ class DosenBimbinganController extends Controller
 
         return redirect()->back()->with('success', 'Dokumen berhasil dihapus.');
     }
+
+    /**
+     * Dosen memberikan rekomendasi / ACC Sidang Skripsi
+     */
+    public function accSidang(Request $request, $nim)
+    {
+        $user = Auth::user();
+
+        if (!$user->dosen) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $nidn = $user->dosen->id_nidn;
+        $mahasiswa = \App\Models\Mahasiswa::findOrFail($nim);
+
+        // Pastikan dosen adalah pembimbing atau memiliki bimbingan dengan mahasiswa ini
+        $isPembimbing = ($mahasiswa->nidn_pembimbing === $nidn) || 
+            Bimbingan::where('nim', $nim)->where('nidn', $nidn)->exists();
+
+        if (!$isPembimbing) {
+            abort(403, 'Anda bukan dosen pembimbing untuk mahasiswa ini.');
+        }
+
+        $request->validate([
+            'catatan' => 'nullable|string|max:1000',
+        ]);
+
+        $mahasiswa->update([
+            'status_sidang' => 'acc_sidang',
+            'tanggal_acc_sidang' => now(),
+            'catatan_acc_sidang' => $request->catatan,
+        ]);
+
+        return redirect()->back()->with('success', 'Mahasiswa berhasil direkomendasikan / ACC untuk Sidang Skripsi.');
+    }
+
+    /**
+     * Dosen melihat Kartu Kendali Bimbingan mahasiswa
+     */
+    public function kartuKendali($nim)
+    {
+        $user = Auth::user();
+
+        if (!$user->dosen) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $mahasiswa = \App\Models\Mahasiswa::with(['dosenPembimbing', 'user'])->findOrFail($nim);
+        $bimbinganList = Bimbingan::with(['dokumen', 'komentar'])
+            ->where('nim', $nim)
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        return view('bimbingan.kartu_kendali', [
+            'mahasiswa' => $mahasiswa,
+            'dosen' => $mahasiswa->dosenPembimbing ?? $user->dosen,
+            'bimbinganList' => $bimbinganList,
+            'tanggalCetak' => now()->isoFormat('D MMMM Y'),
+        ]);
+    }
 }

@@ -97,6 +97,7 @@ Route::middleware(['auth', 'role:1'])->prefix('admin')->group(function () {
     // Resource Routes (CRUD Lengkap)
     Route::resource('tahun_ajar', TahunAjarController::class);
     Route::resource('program_studi', ProgramStudiController::class);
+    Route::get('/bimbingan/kartu-kendali/{nim}', [BimbinganController::class, 'kartuKendali'])->name('admin.bimbingan.kartu-kendali');
     Route::resource('bimbingan', BimbinganController::class);
 });
 
@@ -124,6 +125,8 @@ Route::middleware(['auth', 'role:2'])->prefix('dosen')->group(function () {
 
     // Manajemen Bimbingan
     Route::get('/bimbingan', [DosenBimbinganController::class, 'index'])->name('dosen.bimbingan.index');
+    Route::get('/bimbingan/kartu-kendali/{nim}', [DosenBimbinganController::class, 'kartuKendali'])->name('dosen.bimbingan.kartu-kendali');
+    Route::post('/mahasiswa/{nim}/acc-sidang', [DosenBimbinganController::class, 'accSidang'])->name('dosen.mahasiswa.acc-sidang');
     Route::get('/bimbingan/{id}', [DosenBimbinganController::class, 'show'])->name('dosen.bimbingan.show');
     Route::get('/bimbingan/{id}/edit', [DosenBimbinganController::class, 'edit'])->name('dosen.bimbingan.edit');
     Route::put('/bimbingan/{id}', [DosenBimbinganController::class, 'update'])->name('dosen.bimbingan.update');
@@ -153,6 +156,7 @@ Route::middleware(['auth', 'role:3'])->prefix('mhs')->group(function () {
 
     // Manajemen Bimbingan
     Route::get('/bimbingan', [MhsBimbinganController::class, 'index'])->name('mhs.bimbingan.index');
+    Route::get('/bimbingan/kartu-kendali', [MhsBimbinganController::class, 'kartuKendali'])->name('mhs.bimbingan.kartu-kendali');
     Route::get('/bimbingan/create', [MhsBimbinganController::class, 'create'])->name('mhs.bimbingan.create');
     Route::post('/bimbingan', [MhsBimbinganController::class, 'store'])->name('mhs.bimbingan.store');
     Route::get('/bimbingan/{id}', [MhsBimbinganController::class, 'show'])->name('mhs.bimbingan.show');

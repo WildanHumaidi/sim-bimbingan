@@ -97,6 +97,27 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 min="2000" max="{{ date('Y') + 1 }}" required>
                         </div>
+
+                        <div>
+                            <label for="nidn_pembimbing" class="block text-sm font-medium text-gray-700 mb-2">Penugasan Dosen Pembimbing</label>
+                            <select id="nidn_pembimbing" name="nidn_pembimbing"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">-- Belum Ditugaskan --</option>
+                                @foreach($dosen_list as $dosen)
+                                    <option value="{{ $dosen->id_nidn }}" {{ old('nidn_pembimbing', $user->mahasiswa->nidn_pembimbing) == $dosen->id_nidn ? 'selected' : '' }}>
+                                        {{ $dosen->nama }} (NIDN: {{ $dosen->id_nidn }}) - {{ $dosen->fakultas ?? '-' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label for="judul_skripsi" class="block text-sm font-medium text-gray-700 mb-2">Judul Skripsi / Tugas Akhir</label>
+                            <input type="text" id="judul_skripsi" name="judul_skripsi"
+                                value="{{ old('judul_skripsi', $user->mahasiswa->judul_skripsi) }}"
+                                placeholder="Masukkan judul skripsi resmi mahasiswa..."
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
                     </div>
 
                     <!-- Password Section -->

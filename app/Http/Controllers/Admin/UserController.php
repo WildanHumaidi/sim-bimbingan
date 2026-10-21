@@ -351,8 +351,9 @@ class UserController extends Controller
             return redirect()->route('admin.edit', $user)->with('error', 'User bukan mahasiswa');
         }
 
-        $user->load('mahasiswa');
-        return view('admin.users.edit-mahasiswa', compact('user'));
+        $user->load(['mahasiswa.dosenPembimbing']);
+        $dosen_list = Dosen::orderBy('nama', 'asc')->get();
+        return view('admin.users.edit-mahasiswa', compact('user', 'dosen_list'));
     }
 
     /**
@@ -482,6 +483,8 @@ class UserController extends Controller
             'nama_mahasiswa' => 'required|string|max:255',
             'program_studi' => 'required|string|max:255',
             'angkatan' => 'required|integer|min:2000|max:' . (date('Y') + 1),
+            'nidn_pembimbing' => 'nullable|exists:dosens,id_nidn',
+            'judul_skripsi' => 'nullable|string|max:255',
         ]);
 
         // Add unique validation for NIM if it changed
@@ -513,6 +516,8 @@ class UserController extends Controller
                 'nama' => $request->nama_mahasiswa,
                 'program_studi' => $request->program_studi,
                 'angkatan' => $request->angkatan,
+                'nidn_pembimbing' => $request->nidn_pembimbing,
+                'judul_skripsi' => $request->judul_skripsi,
             ]);
 
             return redirect()->route('admin.users.index')

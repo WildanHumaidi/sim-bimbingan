@@ -34,6 +34,7 @@
 | `GET` | `/mhs/profil` | `mhs.profile.edit` | Formulir edit profil mahasiswa |
 | `POST` | `/mhs/profil` | `mhs.profile.update` | Simpan perubahan profil & foto |
 | `GET` | `/mhs/bimbingan` | `mhs.bimbingan.index` | Daftar sesi bimbingan milik mahasiswa |
+| `GET` | `/mhs/bimbingan/kartu-kendali` | `mhs.bimbingan.kartu-kendali` | Halaman cetak Kartu Kendali Bimbingan resmi |
 | `GET` | `/mhs/bimbingan/create` | `mhs.bimbingan.create` | Formulir pengajuan bimbingan baru |
 | `POST` | `/mhs/bimbingan` | `mhs.bimbingan.store` | Simpan pengajuan bimbingan & upload file |
 | `GET` | `/mhs/bimbingan/{id}` | `mhs.bimbingan.show` | Detail bimbingan & utas diskusi |
@@ -57,6 +58,8 @@
 | `GET` | `/dosen/profil` | `dosen.profile.edit` | Formulir edit profil dosen |
 | `POST` | `/dosen/profil` | `dosen.profile.update` | Simpan profil dosen |
 | `GET` | `/dosen/bimbingan` | `dosen.bimbingan.index` | Daftar mahasiswa bimbingan yang masuk |
+| `GET` | `/dosen/bimbingan/kartu-kendali/{nim}` | `dosen.bimbingan.kartu-kendali` | Cetak Kartu Kendali mahasiswa tertentu |
+| `POST` | `/dosen/mahasiswa/{nim}/acc-sidang` | `dosen.mahasiswa.acc-sidang` | Dosen memberikan rekomendasi ACC Sidang |
 | `GET` | `/dosen/bimbingan/{id}` | `dosen.bimbingan.show` | Halaman review & validasi bimbingan |
 | `GET` | `/dosen/bimbingan/{id}/edit` | `dosen.bimbingan.edit` | Form ubah status & catatan validasi |
 | `PUT` | `/dosen/bimbingan/{id}` | `dosen.bimbingan.update` | Simpan keputusan status (`valid`, `invalid`) |
@@ -82,4 +85,5 @@
 | `DELETE` | `/admin/users/{user}` | `admin.destroy` | Hapus akun pengguna |
 | `RESOURCE` | `/admin/program_studi` | `program_studi.*` | CRUD master data program studi |
 | `RESOURCE` | `/admin/tahun_ajar` | `tahun_ajar.*` | CRUD master data tahun ajaran |
+| `GET` | `/admin/bimbingan/kartu-kendali/{nim}` | `admin.bimbingan.kartu-kendali` | Cetak Kartu Kendali mahasiswa tertentu |
 | `RESOURCE` | `/admin/bimbingan` | `bimbingan.*` | Monitoring & manajemen seluruh bimbingan |

@@ -7,13 +7,20 @@
             <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Daftar Bimbingan</h1>
             <p class="text-gray-600 text-lg">Kelola jadwal bimbingan dengan dosen pembimbing</p>
         </div>
-        <a href="{{ route('mhs.bimbingan.create') }}"
-           class="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white px-9 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5v14m-7-7h14"/>
-            </svg>
-            <span>Tambah Bimbingan</span>
-        </a>
+        <div class="flex items-center gap-3">
+            <a href="{{ route('mhs.bimbingan.kartu-kendali') }}" target="_blank"
+               class="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 px-6 py-3 rounded-xl font-semibold shadow-sm hover:shadow transition-all duration-200 space-x-2">
+                <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                <span>Cetak Kartu Kendali</span>
+            </a>
+            <a href="{{ route('mhs.bimbingan.create') }}"
+               class="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white px-7 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14m-7-7h14"/>
+                </svg>
+                <span>Tambah Bimbingan</span>
+            </a>
+        </div>
     </div>
 
     {{-- Alert Messages --}}

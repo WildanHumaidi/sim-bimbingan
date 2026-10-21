@@ -45,6 +45,50 @@
             </x-stat-card>
         </div>
 
+        {{-- Academic Status & Supervisor Banner --}}
+        <div class="mt-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-2 flex-1">
+                <div class="flex flex-wrap items-center gap-3">
+                    <h2 class="text-xl font-bold text-gray-900">{{ $mahasiswa->nama }} ({{ $mahasiswa->id_nim }})</h2>
+                    @if($mahasiswa->status_sidang === 'acc_sidang')
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span> ACC SIAP SIDANG
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
+                            <span class="w-2 h-2 rounded-full bg-amber-500"></span> PROSES BIMBINGAN
+                        </span>
+                    @endif
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-sm text-gray-600">
+                    <div>
+                        <span class="font-medium text-gray-700">Dosen Pembimbing:</span> 
+                        <strong class="text-gray-900">{{ $mahasiswa->dosenPembimbing?->nama ?? 'Belum Ditugaskan' }}</strong>
+                        @if($mahasiswa->dosenPembimbing)
+                            <span class="text-xs text-gray-500">({{ $mahasiswa->dosenPembimbing->id_nidn }})</span>
+                        @endif
+                    </div>
+                    <div>
+                        <span class="font-medium text-gray-700">Progres Sesi Valid:</span> 
+                        <strong class="{{ $statistik['valid'] >= 8 ? 'text-green-700' : 'text-blue-700' }}">{{ $statistik['valid'] }} dari min. 8 Sesi</strong>
+                    </div>
+                    <div class="sm:col-span-2 mt-1">
+                        <span class="font-medium text-gray-700">Judul Skripsi / Tugas Akhir:</span>
+                        <span class="text-gray-900 italic">"{{ $mahasiswa->judul_skripsi ?? 'Belum didaftarkan' }}"</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 self-start md:self-center">
+                <a href="{{ route('mhs.bimbingan.kartu-kendali') }}" target="_blank"
+                   class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow hover:shadow-md transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                    <span>Cetak Kartu Kendali</span>
+                </a>
+            </div>
+        </div>
+
         {{-- Dashboard Content Grid --}}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
             {{-- Pie Chart Status Bimbingan --}}

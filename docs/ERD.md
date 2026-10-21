@@ -38,6 +38,11 @@ erDiagram
         string nama "Max 100"
         string program_studi "Max 100"
         string angkatan "Max 10"
+        string nidn_pembimbing FK "References dosens.id_nidn"
+        string judul_skripsi "Judul Tugas Akhir / Skripsi"
+        enum status_sidang "'belum_acc', 'acc_sidang'"
+        timestamp tanggal_acc_sidang "Nullable"
+        text catatan_acc_sidang "Nullable"
         timestamp created_at
         timestamp updated_at
     }
@@ -130,6 +135,11 @@ Menyimpan profil detail pengguna dengan peran Mahasiswa.
 | `nama` | `VARCHAR(100)` | No | - | Nama lengkap mahasiswa |
 | `program_studi` | `VARCHAR(100)` | No | - | Nama program studi |
 | `angkatan` | `VARCHAR(10)` | No | - | Tahun angkatan masuk |
+| `nidn_pembimbing` | `VARCHAR(20)` | Yes | NULL | Foreign Key -> `dosens.id_nidn` ON DELETE SET NULL |
+| `judul_skripsi` | `VARCHAR(255)` | Yes | NULL | Judul skripsi / tugas akhir resmi |
+| `status_sidang` | `ENUM('belum_acc','acc_sidang')` | No | 'belum_acc' | Status rekomendasi kelayakan sidang |
+| `tanggal_acc_sidang` | `TIMESTAMP` | Yes | NULL | Waktu dosen memberikan ACC sidang |
+| `catatan_acc_sidang` | `TEXT` | Yes | NULL | Catatan evaluasi dosen saat ACC sidang |
 | `created_at` | `TIMESTAMP` | Yes | NULL | Timestamp |
 | `updated_at` | `TIMESTAMP` | Yes | NULL | Timestamp |
 

@@ -76,6 +76,7 @@
                                     @endforeach
                                 </td>
                                 <td class="px-2 sm:px-4 py-3 text-center space-x-2">
+                                    <a href="{{ route('admin.bimbingan.kartu-kendali', $item->nim) }}" target="_blank" class="text-green-600 hover:text-green-800 whitespace-nowrap">Kartu Kendali</a>
                                     <a href="{{ route('bimbingan.edit', $item->id_bimbingan) }}" class="text-blue-600 hover:text-blue-800 whitespace-nowrap">Edit</a>
                                     <button @click="setSelectedBimbingan(@js($item)); showDeleteModal = true" class="text-red-600 hover:text-red-800 whitespace-nowrap">Hapus</button>
                                 </td>

@@ -131,4 +131,23 @@ class BimbinganController extends Controller
 
         return redirect()->route('bimbingan.index')->with('success', 'Bimbingan berhasil dihapus.');
     }
+
+    /**
+     * Admin melihat dan mencetak Kartu Kendali Bimbingan
+     */
+    public function kartuKendali($nim)
+    {
+        $mahasiswa = Mahasiswa::with(['dosenPembimbing', 'user'])->findOrFail($nim);
+        $bimbinganList = Bimbingan::with(['dokumen', 'komentar'])
+            ->where('nim', $nim)
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        return view('bimbingan.kartu_kendali', [
+            'mahasiswa' => $mahasiswa,
+            'dosen' => $mahasiswa->dosenPembimbing,
+            'bimbinganList' => $bimbinganList,
+            'tanggalCetak' => now()->isoFormat('D MMMM Y'),
+        ]);
+    }
 }

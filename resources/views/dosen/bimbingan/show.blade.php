@@ -75,8 +75,44 @@
 
                         <div>
                             <p class="text-sm text-gray-500 mb-1">Program Studi</p>
-                            <p class="text-base font-medium text-gray-900">{{ $bimbingan->mahasiswa->program_studi }}
-                            </p>
+                            <p class="text-base font-medium text-gray-900">{{ $bimbingan->mahasiswa->program_studi }}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">Judul Skripsi</p>
+                            <p class="text-sm font-medium text-gray-800 italic">"{{ $bimbingan->mahasiswa->judul_skripsi ?? 'Belum didaftarkan' }}"</p>
+                        </div>
+
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">Status Sidang</p>
+                            @if($bimbingan->mahasiswa->status_sidang === 'acc_sidang')
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                                    ✓ ACC SIAP SIDANG
+                                </span>
+                            @else
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+                                    Proses Bimbingan
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-200 space-y-2">
+                            <a href="{{ route('dosen.bimbingan.kartu-kendali', $bimbingan->nim) }}" target="_blank"
+                               class="w-full inline-flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 transition">
+                                <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                                <span>Cetak Kartu Kendali</span>
+                            </a>
+
+                            @if($bimbingan->mahasiswa->status_sidang !== 'acc_sidang')
+                                <form action="{{ route('dosen.mahasiswa.acc-sidang', $bimbingan->nim) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin memberikan rekomendasi ACC Sidang Skripsi untuk mahasiswa ini?')">
+                                    @csrf
+                                    <button type="submit"
+                                            class="w-full inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        <span>Rekomendasikan ACC Sidang</span>
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>

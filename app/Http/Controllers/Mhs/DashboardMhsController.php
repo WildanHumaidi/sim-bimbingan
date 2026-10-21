@@ -52,6 +52,7 @@ class DashboardMhsController extends Controller
 
         return view('mhs.dashboard', [
             'title' => 'Dashboard Mahasiswa',
+            'mahasiswa' => $user->mahasiswa->load('dosenPembimbing'),
             'statistik' => $stats,
             'bimbinganPerBulan' => $bimbinganPerBulan,
             'recentBimbingan' => $recentBimbingan,

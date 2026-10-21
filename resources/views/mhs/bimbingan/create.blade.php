@@ -50,13 +50,21 @@
                 <label for="nidn" class="block text-sm font-medium text-gray-700 mb-2">
                     Dosen Pembimbing <span class="text-red-500">*</span>
                 </label>
+                @if(isset($pembimbing))
+                    <div class="mb-2 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center gap-2 text-sm text-blue-900 font-medium">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Dosen Pembimbing Resmi Anda: <strong>{{ $pembimbing->nama }}</strong> (NIDN: {{ $pembimbing->id_nidn }})</span>
+                    </div>
+                @endif
                 <select name="nidn" id="nidn"
                         class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('nidn') border-red-500 @enderror transition-colors">
-                    <option value="">Pilih Dosen Pembimbing</option>
+                    @if(!isset($pembimbing))
+                        <option value="">Pilih Dosen Pembimbing</option>
+                    @endif
                     @if(isset($dosen))
                         @foreach($dosen as $item)
-                            <option value="{{ $item->id_nidn }}" {{ old('nidn') == $item->id_nidn ? 'selected' : '' }}>
-                                {{ $item->nidn }} - {{ $item->nama }} ({{ $item->fakultas ?? '-' }})
+                            <option value="{{ $item->id_nidn }}" {{ old('nidn', $pembimbing?->id_nidn) == $item->id_nidn ? 'selected' : '' }}>
+                                {{ $item->id_nidn }} - {{ $item->nama }} ({{ $item->fakultas ?? '-' }})
                             </option>
                         @endforeach
                     @endif

@@ -61,6 +61,11 @@ SIM Bimbingan adalah platform web terpadu yang dirancang untuk memfasilitasi, me
 - **FR-014 (Master Tahun Ajar):** CRUD tahun ajaran dan semester aktif.
 - **FR-015 (User Management):** Admin dapat membuat, melihat, mengedit, dan menghapus akun Admin, Dosen, dan Mahasiswa.
 - **FR-016 (Bimbingan Monitoring):** Admin dapat melihat seluruh daftar bimbingan mahasiswa dan melakukan intervensi jika diperlukan.
+- **FR-017 (Penugasan Dosen Pembimbing):** Admin dapat menetapkan atau mengubah Dosen Pembimbing resmi untuk setiap mahasiswa (`nidn_pembimbing`).
+
+### 3.5 Fitur Kelayakan Sidang & Pelaporan Resmi
+- **FR-018 (Gate & Rekomendasi ACC Sidang):** Dosen Pembimbing dapat memberikan status rekomendasi `ACC Siap Sidang` kepada mahasiswa bimbingannya yang telah menuntaskan seluruh bab skripsi dan memenuhi kuota bimbingan.
+- **FR-019 (Cetak Kartu Kendali Bimbingan PDF/Print):** Mahasiswa, Dosen, dan Admin dapat mencetak Kartu Kendali Bimbingan resmi berformat standar A4 yang memuat kop universitas, identitas, judul skripsi, tabel sesi bimbingan tervalidasi, status ACC sidang, serta kolom tanda tangan dosen dan kaprodi.
 
 ---
 

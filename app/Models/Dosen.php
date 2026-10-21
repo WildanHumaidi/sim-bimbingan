@@ -33,6 +33,11 @@ class Dosen extends Model
         return $this->hasMany(Bimbingan::class, 'nidn', 'id_nidn');
     }
 
+    public function mahasiswaBimbingan()
+    {
+        return $this->hasMany(Mahasiswa::class, 'nidn_pembimbing', 'id_nidn');
+    }
+
     // Method untuk validasi fakultas
     public static function validateFakultas($fakultas)
     {
