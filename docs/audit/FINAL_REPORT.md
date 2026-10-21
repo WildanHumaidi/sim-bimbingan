@@ -62,8 +62,8 @@ Seluruh gerbang kualitas inti (PHP Syntax Check, PHPUnit Feature/Unit Tests, Vit
 
 ## D. Risiko Tersisa & Keputusan yang Masih Diperlukan
 
-1. **Rotasi Kredensial Database Railway Cloud:**
-   - Kredensial database Railway yang sebelumnya tercatat di `.env.example` sempat berstatus aktif sebelum diaudit. Pemilik infrastruktur disarankan melakukan rotasi kata sandi root di console Railway.
+1. **Status Database Railway Cloud:**
+   - Telah dilakukan pengetesan koneksi aktual: layanan Railway di `metro.proxy.rlwy.net:27293` telah dihentikan/non-aktif permanen (`MySQL server has gone away`). Proyek saat ini telah 100% dialihkan ke database MySQL lokal (`sim_bimbingan`) dan bebas dari ketergantungan Railway.
 2. **Kredensial Google OAuth:**
    - Kunci `GOOGLE_CLIENT_ID` dan `GOOGLE_CLIENT_SECRET` saat ini kosong di `.env.example`. Jika universitas ingin mengaktifkan login Google SSO, kredensial resmi dari Google Cloud Console perlu dikonfigurasi.
 3. **Penyimpanan Dokumen Jangka Panjang:**
@@ -73,9 +73,10 @@ Seluruh gerbang kualitas inti (PHP Syntax Check, PHPUnit Feature/Unit Tests, Vit
 
 ## E. Status Repositori Git
 
-- **Status Repository:** Git repository telah diinisialisasi (`git init`).
-- **Branch Aktif:** `master` (default lokal).
+- **Status Repository:** Repositori Git terhubung dan tersinkronisasi.
+- **Branch Aktif:** `main` (tracking `origin/main`).
+- **Remote Origin:** `https://github.com/WildanHumaidi/sim-bimbingan.git`
 - **Perlindungan File Sensitif:** Berkas `.env`, dependensi `vendor/`, `node_modules/`, log Laravel, cache views, dan berkas upload pengguna (`public/doc/*`, `public/profile/*`) telah dikonfigurasi dan diverifikasi terabaikan melalui `.gitignore`.
 - **Integritas Lisensi:** Berkas `LICENSE` (MIT License) telah disediakan di root repository.
 - **Dokumentasi Utama:** `README.md` telah diperbarui menjadi dokumentasi proyek yang profesional dan representatif.
-- **Remote Push:** Belum dilakukan (menunggu konfigurasi remote origin dan otorisasi pemilik proyek).
+- **Remote Push:** `PASS` (Berhasil dipublikasikan ke GitHub pada branch `main`).
